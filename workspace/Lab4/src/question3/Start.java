@@ -2,7 +2,11 @@ package question3;
 
 public class Start {
 	public static String check(Student someStudent) {
-		// TODO: Implement this method according to the question 2 description.
+		if (someStudent.isSleeping()) {
+			return "sweet dreams";
+		} else {
+			return "need coffee";
+		}
 	}
 
 	public static void main(String[] args) {
