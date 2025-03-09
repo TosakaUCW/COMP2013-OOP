@@ -1,6 +1,35 @@
 package question1;
 
 public class Student {
+    // Attributes
+    private Assignment myAssignment;
+    public boolean honest;
+    public String name;
+    
+    // Constructor
+    public Student(String name, boolean honest) {
+        this.myAssignment = null;
+        this.name = name;
+        this.honest = honest;
+    }
+    
+    public Assignment getAssignment() {
+        return this.myAssignment;
+    }
+    
+    public void writeAssignment(Assignment a) {
+        this.myAssignment = a;
+    }
+    
+    public void copyAssignment(Assignment a) {
+        if (this.name != a.getName()) {
+            this.myAssignment = a;
+        }
+    }
+    
+    public String getName() {
+        return this.name;
+    }
 
     // Tests
     public static void testStudent() {

@@ -1,6 +1,50 @@
 package question1;
 
 public class Code {
+    private boolean canRun;
+    private boolean canCompile;
+    private int lines;
+    
+    // Constructors
+    public Code() {
+        this.canRun = false;
+        this.canCompile = false;
+        this.lines = 0;
+    }
+    
+    public Code(boolean canCompile, boolean canRun, int lines) {
+        this.canRun = canRun;
+        this.canCompile = canCompile;
+        this.lines = lines;
+    }
+    
+    // Methods
+    
+    // compile() is a public method that returns as result whether the code can be compiled correctly.
+    public boolean compile() {
+        return this.canCompile;
+    }
+    
+    // run() is a public method that returns as result whether the code can be run correctly.
+    public boolean run() {
+        return this.canRun;
+    }
+    
+    // countLines()is a public method that returns the number of lines in the code.
+    public int countLines() {
+        return this.lines;
+    }
+    
+    // coding() is a public method that write the code to a certain number of lines.
+    public void coding(int lines) {
+        this.lines = lines;
+    }
+    
+    // debug() is a public method that corrects all errors and makes the code compile and run correctly.
+    public void debug() {
+        this.canCompile = true;
+        this.canRun = true;
+    }
 
     // Tests
     public static void testCode() {
