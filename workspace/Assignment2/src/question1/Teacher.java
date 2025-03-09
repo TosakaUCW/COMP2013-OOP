@@ -1,6 +1,44 @@
 package question1;
 
 public class Teacher {
+    // Attributes
+    private String name;
+    
+    // Constructor
+    public Teacher(String name) {
+        this.name = name;
+    }
+    
+    public int grading(Student s) {
+        Assignment a = s.getAssignment();
+        
+        // If the assignment’s name (the student who finished the assignment) is not equal to the name of the student who submitted the assignment, the score is 0;
+        if (a == null || !a.getName().equals(s.getName())) {
+            return 0;
+        }
+        
+        // If the assignment is not submit on time, the score is 0;
+        if (!a.isSubmitted()) {
+            return 0;
+        }
+        // If the assignment is submitted on time, but cannot compile, the score is 0;
+        if (!a.getCode().compile()) {
+            return 0;
+        }
+        // If the assignment is submitted on time, can compile, but cannot run, the score is 50;
+        if (!a.getCode().run()) {
+            return 50;
+        }
+        // If the assignment is submitted on time, can compile, can run, and the code lines < 100, the score is 80;
+        if (a.getCode().countLines() < 100) {
+            return 80;
+        }
+        // If the assignment is submitted on time, can compile, can run, and the code lines > 100, the score is 100;
+        if (a.getCode().countLines() >= 100) {
+            return 100;
+        }
+        return 100;
+    }
     
     // Tests
     public static void testTeacher() {
