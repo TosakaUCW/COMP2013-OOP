@@ -1,6 +1,27 @@
 package question2;
 
 public class Cat {
+	// Attributes
+	private String name;
+	private double weight;
+
+	// Constructor
+	public Cat(String name, double weight) {
+		this.name = name;
+		this.weight = weight;
+	}
+
+	public String getName() {
+		return name;
+	}
+	
+	public double getWeight() {
+		return weight;
+	}
+	
+	public void feed() {
+		weight += 1.0;
+	}
 
 	public static void testCat() {
 
