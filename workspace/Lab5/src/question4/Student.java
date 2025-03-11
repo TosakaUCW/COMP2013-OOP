@@ -1,6 +1,24 @@
 package question4;
 
 public class Student {
+	// Attributes
+	private String name;
+	private Animal pet;
+	
+	// Constructor
+	public Student(String name, Animal pet) {
+		this.name = name;
+		this.pet = pet;
+	}
+	
+	// Method
+	public String getName() {
+		return name;
+	}
+	
+	public Animal getPet() {
+		return pet;
+	}
 	
 	public static void testStudent() {
 		System.out.println ("Test constructor");

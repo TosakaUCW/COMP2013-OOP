@@ -1,6 +1,14 @@
 package question4;
 
 public class Cat extends Animal {
+	// Constructor
+	public Cat(String name, double weight) {
+		super(name, weight);
+	}
+	
+	public void feed() {
+		setWeight(getWeight() + 1.0);
+	}
 
 	public static void testCat() {
 		System.out.println("Test constructor");
