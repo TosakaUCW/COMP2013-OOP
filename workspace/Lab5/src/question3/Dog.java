@@ -1,6 +1,37 @@
 package question3;
 
 public class Dog {
+	// Attributes
+	private String name;
+	private String breed;
+	private double weight;
+
+	// Constructor
+	public Dog(String name, double weight) {
+		this.name = name;
+		this.breed = "unknown";
+		this.weight = weight;
+	}
+
+	public String getName() {
+		return name;
+	}
+	
+	public double getWeight() {
+		return weight;
+	}
+	
+	public String getBreed() {
+		return breed;
+	}
+	
+	public void setBreed(String breed) {
+		this.breed = breed;
+	}
+	
+	public void feed() {
+		weight += 2.0;
+	}	
 
 	public static void testDog() {
 		System.out.println("Test constructor");
