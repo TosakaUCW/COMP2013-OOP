@@ -15,6 +15,10 @@ public class Circle extends Shape {
 		return Math.PI * radius * radius;
 	}
 	
+	public String toString() {
+		return "Circle area is " + area();
+	}
+	
 	public static void testCircle() {
 		Circle c = new Circle(1.2, 3.4, 4.0);
 		// getX and getY are inherited from Shape.
@@ -22,7 +26,7 @@ public class Circle extends Shape {
 		System.out.println(c.getX() == 1.2);
 		System.out.println(c.getY() == 3.4);
 		System.out.println(c.area() == Math.PI * 16.0);
-		
+		System.out.println(c.toString().equals("Circle area is " + Math.PI * 16.0));
 	}
 }
 

@@ -29,9 +29,13 @@ public class Rectangle extends Shape {
 	public boolean equals(Object o) {
 		if (o instanceof Rectangle) {
 			Rectangle r = (Rectangle) o;
-			return r.getX() == getX() && r.getY() == getY() && r.getWidth() == width && r.getLength() == length;
+			return r.getWidth() == width && r.getLength() == length;
 		}
 		return false;
+	}
+	
+	public String toString() {
+		return "Rectangle area is " + area();
 	}
 
 	public static void testRectangle() {
@@ -44,9 +48,9 @@ public class Rectangle extends Shape {
 		System.out.println(r.getX() == 1.2);
 		System.out.println(r.getY() == 3.4);
 		System.out.println(r.area() == 20.0);
-		
 		System.out.println(r.equals(r1));
 		System.out.println(!r1.equals(r2));
 		System.out.println(!r1.equals(c));
+		System.out.println(r.toString().equals("Rectangle area is " + 4.0 * 5.0));
 	}
 }

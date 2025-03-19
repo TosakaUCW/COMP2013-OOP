@@ -29,7 +29,7 @@ public class Rectangle extends Shape {
 	public boolean equals(Object o) {
 		if (o instanceof Rectangle) {
 			Rectangle r = (Rectangle) o;
-			return r.getX() == getX() && r.getY() == getY() && r.getWidth() == width && r.getLength() == length;
+			return r.getWidth() == width && r.getLength() == length;
 		}
 		return false;
 	}
