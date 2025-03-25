@@ -2,7 +2,17 @@ package question5;
 
 // The class Magpie derives from the class Bird.
 public class Magpie extends Bird {
-
+	// Constructor
+	public Magpie(String name) {
+		super(name, 6);
+	}
+	
+	// The Magpie class must implement the abstract method canFly.
+	// The canFly method returns true because magpies can fly.
+	public boolean canFly() {
+		return true;
+	}
+	
 	public static void testMagpie() {
 		Magpie m = new Magpie("Maggie");
 		// The getName method is inherited from Bird, which inherits it
