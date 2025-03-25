@@ -2,6 +2,26 @@ package question8;
 
 // The class Pegasus derives from the class Bird.
 public class Pegasus extends Bird {
+	// Constructor
+	public Pegasus(String name) {
+		super(name, 0);
+	}
+	
+	// The Pegasus class must implement the abstract method canFly.
+	// The canFly method returns true because Pegasus can fly.
+	public boolean canFly() {
+		return true;
+	}
+	
+	// The getLegs method returns the number of legs of a Pegasus.
+	public int getLegs() {
+		return 4;
+	}
+	
+	public int getNumOfEggs() {
+		System.out.println("Pegasi do not lay eggs!");
+		return 0;
+	}
 	
 	public static void TestPegasus() {
 		Pegasus p = new Pegasus("Peggie");

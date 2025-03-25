@@ -3,6 +3,20 @@ package question9;
 
 // The class Ostrich derives from the class Bird.
 public class Ostrich extends Bird {
+	// Constructor
+	public Ostrich(String name) {
+		super(name, 10);
+	}
+	
+	// The Ostrich class must implement the abstract method canFly.
+	// The canFly method returns false because ostriches cannot fly.
+	public boolean canFly() {
+		return false;
+	}
+	
+	public boolean isDangerous() {
+		return true;
+	}
 	
 	public static void testOstrich() {
 		Ostrich o = new Ostrich("Ossie");
