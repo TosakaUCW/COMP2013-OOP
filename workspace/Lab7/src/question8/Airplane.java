@@ -1,4 +1,4 @@
-package question9;
+package question8;
 
 public class Airplane implements Flyer {
 	private String name;
