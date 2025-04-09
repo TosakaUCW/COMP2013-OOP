@@ -2,6 +2,10 @@ package question6;
 
 // The Square class derives from the Rectangle class.
 public class Square extends Rectangle {
+    // The constructor initializes the x and y coordinates and the side length.
+    public Square(double x, double y, double size) {
+        super(x, y, size, size);
+    }
 
     // The area method is inherited from Rectangle.
     // The resize method is inherited from Rectangle.

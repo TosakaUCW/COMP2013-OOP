@@ -2,6 +2,34 @@ package question6;
 
 // The Rectangle class derives from the Shape class.
 public class Rectangle extends Shape {
+    double width, height;
+    
+    // The constructor initializes the x and y coordinates, width, and height.
+    public Rectangle(double x, double y, double width, double height) {
+        super(x, y);
+        this.width = width;
+        this.height = height;
+    }
+    
+    // The area method returns the area of the rectangle.
+    @Override
+    public double area() {
+        return width * height;
+    }
+    
+    // The resize method changes the width and height of the rectangle
+    @Override
+    public void resize(double newSize) {
+        this.width = newSize;
+        this.height = newSize;
+    }
+    
+    // The resize method changes the width and height of the rectangle
+    // to the specified width and height.
+    public void resize(double newWidth, double newHeight) {
+        this.width = newWidth;
+        this.height = newHeight;
+    }
 
     // The Rectangle class is not abstract (it has code for all methods) so
     // we can test it.
