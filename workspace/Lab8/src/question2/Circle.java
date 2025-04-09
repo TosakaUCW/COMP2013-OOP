@@ -2,6 +2,25 @@ package question2;
 
 // The Circle class derives from the Shape class.
 public class Circle extends Shape {
+	double radius;
+	
+	// The constructor initializes the x and y coordinates and the radius.
+	public Circle(double x, double y, double radius) {
+		super(x, y);
+		this.radius = radius;
+	}
+	
+	// The area method returns the area of the circle.
+	@Override
+	public double area() {
+		return Math.PI * radius * radius;
+	}
+	
+	// The resize method changes the radius of the circle.
+	@Override
+	public void resize(double newRadius) {
+		this.radius = newRadius;
+	}
 
 	// The Circle class is not abstract (it has code for all methods) so
 	// we can test it.
