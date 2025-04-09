@@ -2,6 +2,22 @@ package question7;
 
 // The Dot class derives from the Shape class.
 public class Dot extends Shape {
+	double x, y;
+	
+	// The constructor initializes the x and y coordinates.
+	public Dot(double x, double y) {
+		super(x, y);
+	}
+	
+	@Override
+	public double area() {
+		return 0.0;
+	}
+	
+	@Override
+	public void resize(double newSize) throws CannotResizeException {
+		throw new CannotResizeException("Cannot resize a dot!");
+	}
 	
 	// The Dot class is not abstract (it has code for all methods) so
 	// we can test it.
