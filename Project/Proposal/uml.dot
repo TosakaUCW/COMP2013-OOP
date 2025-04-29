@@ -1,0 +1,24 @@
+digraph UML_Diagram {
+    rankdir=TB;
+    fontsize=11;
+    node [shape=record];
+
+    Schedulable [label="{Schedulable (interface)| |+ bookAppointment(date: String, time: String, serviceType: String): boolean\l+ cancelAppointment(appointmentID: int): boolean\l}"];
+    Person [label="{Person (abstract)|- name: String\l- email: String\l|+ getName(): String\l+ getEmail(): String\l}"];
+    Customer [label="{Customer| |+ bookAppointment(date: String, time: String, serviceType: String): boolean\l+ cancelAppointment(appointmentID: int): boolean\l}"];
+    // Admin [label="{Admin| |+ bookAppointment(date: String, time: String, serviceType: String): boolean\l+ cancelAppointment(appointmentID: int): boolean\l+ viewAllAppointments(): List\<Appointment\>}"];
+    Admin [label="{Admin| |+ bookAppointment(date: String, time: String, serviceType: String): boolean\l+ cancelAppointment(appointmentID: int): boolean\l+ viewAllAppointments(): List\<Appointment\>\l+ manageAppointments(): boolean\l}"];
+    Appointment [label="{Appointment|- appointmentID: int\l- customer: Customer\l- serviceType: String\l- date: String\l- time: String\l|+ getDetails(): String\l}"];
+    AppointmentManager [label="{AppointmentManager|- appointments: List<Appointment>\l|+ addAppointment(appointment: Appointment): boolean\l+ updateAppointment(appointmentID: int, newDate: String, newTime: String): boolean\l+ deleteAppointment(appointmentID: int): boolean\l+ findAppointment(appointmentID: int): Appointment\l}"];
+    DoubleBookingException [label="{DoubleBookingException| |+ DoubleBookingException(message: String)\l}"];
+    InvalidAppointmentException [label="{InvalidAppointmentException| |+ InvalidAppointmentException(message: String)\l}"];
+
+    Person -> Customer [arrowhead="onormal" label="extends"];
+    Person -> Admin [arrowhead="onormal" label="extends"];
+    Schedulable -> Customer [arrowhead="onormal" style="dashed" label="implements"];
+    Schedulable -> Admin [arrowhead="onormal" style="dashed" label="implements"];
+    Customer -> Appointment [arrowhead="vee" label="books"];
+    AppointmentManager -> Appointment [arrowhead="vee" label="manages"];
+    DoubleBookingException -> Exception [arrowhead="onormal" style="dashed" label="extends"];
+    InvalidAppointmentException -> Exception [arrowhead="onormal" style="dashed" label="extends"];
+}
