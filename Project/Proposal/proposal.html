@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Online Appointment Scheduling System</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: consolas, 微软雅黑, -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'HelveticaNeue-Light', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="online-appointment-scheduling-system">Online Appointment Scheduling System</h1>
+<h2 id="1-real-world-scenario-and-business-logic">1. Real-World Scenario and Business Logic</h2>
+<p>The system models a real-world online appointment scheduling service. It can be used by businesses like clinics, salons, and consulting firms to manage customer bookings.</p>
+<p><strong>Key Features:</strong></p>
+<ul>
+<li>Users (customers) can create, view, update, and cancel their appointments.</li>
+<li>Admins (service providers) can view and manage all appointments.</li>
+<li>Appointment data includes customer information (name, contact), appointment date/time, and service type.</li>
+<li>Simple login functionality to differentiate between Admin and User.</li>
+</ul>
+<p><strong>Business Logic:</strong></p>
+<ul>
+<li>Customers can schedule available time slots.</li>
+<li>Double-booking for the same time slot is not allowed.</li>
+<li>Admins can open or block specific time slots.</li>
+<li>All appointment information is stored persistently.</li>
+</ul>
+<h2 id="2-oop-design-interface-abstract-class-inheritance">2. OOP Design (Interface, Abstract Class, Inheritance)</h2>
+<h3 id="class-structure">Class Structure:</h3>
+<ul>
+<li>
+<p><strong>Interface</strong>: <code>Schedulable</code></p>
+<ul>
+<li>Defines common methods for scheduling (e.g., <code>bookAppointment()</code>, <code>cancelAppointment()</code>).</li>
+</ul>
+</li>
+<li>
+<p><strong>Abstract Class</strong>: <code>Person</code></p>
+<ul>
+<li>Attributes: <code>name</code>, <code>email</code></li>
+<li>Common methods: <code>getName()</code>, <code>getEmail()</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Concrete Classes:</strong></p>
+<ul>
+<li><code>Customer</code> (extends <code>Person</code>)</li>
+<li><code>Admin</code> (extends <code>Person</code>)</li>
+</ul>
+</li>
+<li>
+<p><strong>Other Classes:</strong></p>
+<ul>
+<li><code>Appointment</code>
+<ul>
+<li>Attributes: <code>appointmentID</code>, <code>customer</code>, <code>serviceType</code>, <code>date</code>, <code>time</code></li>
+</ul>
+</li>
+<li><code>AppointmentManager</code>
+<ul>
+<li>Manages the list of all appointments (ArrayList)</li>
+<li>Handles CRUD operations</li>
+</ul>
+</li>
+<li><code>Custom Exceptions</code>
+<ul>
+<li><code>DoubleBookingException</code> (extends Exception)</li>
+<li><code>InvalidAppointmentException</code> (extends Exception)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Polymorphism</strong>:</p>
+<ul>
+<li><code>Customer</code> and <code>Admin</code> are treated as <code>Person</code> type.</li>
+<li><code>bookAppointment()</code> method behavior varies between <code>Customer</code> and <code>Admin</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Method Overloading and Overriding:</strong></p>
+<ul>
+<li>Overloading in <code>AppointmentManager</code> (e.g., <code>findAppointment(int id)</code>, <code>findAppointment(String email)</code>)</li>
+<li>Overriding <code>toString()</code> in <code>Appointment</code>, <code>Customer</code>, etc.</li>
+</ul>
+</li>
+</ul>
+<h3 id="uml-diagram">UML Diagram</h3>
+<p><img src="file:////Users/tosaka/Developments/COMP2013-OOP/Project/Proposal/1.svg" alt="UML Diagram"></p>
+<h2 id="3-gui-window-design-and-features">3. GUI Window Design and Features</h2>
+<p>The system will use <strong>Java Swing</strong> to build a user-friendly interface.</p>
+<p><strong>Main Window Components:</strong></p>
+<ul>
+<li><strong>Tabs</strong>:
+<ul>
+<li>Customer Portal</li>
+<li>Admin Portal</li>
+</ul>
+</li>
+<li><strong>Input Fields</strong>:
+<ul>
+<li>Name (JTextField)</li>
+<li>Email (JTextField)</li>
+<li>Date (JTextField)</li>
+<li>Time (JTextField)</li>
+<li>Service Type (JComboBox)</li>
+</ul>
+</li>
+<li><strong>Buttons</strong>:
+<ul>
+<li>Create Appointment (JButton)</li>
+<li>Update Appointment (JButton)</li>
+<li>Cancel Appointment (JButton)</li>
+<li>View Appointments (JButton)</li>
+</ul>
+</li>
+<li><strong>Display Area</strong>:
+<ul>
+<li>JTable listing all scheduled appointments.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Temporary Dialogs</strong>:</p>
+<ul>
+<li>For updating appointment information.</li>
+</ul>
+<p><strong>User Experience Features:</strong></p>
+<ul>
+<li>Input validation with pop-up error messages (e.g., empty fields, invalid time format).</li>
+<li>Confirmation messages after successful operations.</li>
+<li>Exception handling for double bookings and invalid data.</li>
+</ul>
+<p><img src="file:////Users/tosaka/Developments/COMP2013-OOP/Project/Proposal/2.png" alt="alt text"></p>
+<h2 id="4-file-io-design">4. File I/O Design</h2>
+<p><strong>Data Storage:</strong></p>
+<ul>
+<li>Use a text file (<code>appointments.txt</code>) to store all appointment data.</li>
+<li>Each appointment saved in a line (e.g., CSV format).</li>
+</ul>
+<p><strong>Loading Data:</strong></p>
+<ul>
+<li>When the program starts, <code>AppointmentManager</code> will read from <code>appointments.txt</code> and populate the ArrayList.</li>
+</ul>
+<p><strong>Saving Data:</strong></p>
+<ul>
+<li>When the program exits, <code>AppointmentManager</code> writes the current state of appointments back into <code>appointments.txt</code>.</li>
+</ul>
+<p><strong>Sample Line Format:</strong></p>
+<pre><code>1,John Doe,john@example.com,Haircut,2025-05-01,14:00
+</code></pre>
+<p><strong>Error Handling:</strong></p>
+<ul>
+<li>Catch file not found and IO exceptions.</li>
+<li>Validate data integrity during file loading.</li>
+</ul>
+<hr>
+
+            
+            
+        </body>
+        </html>
