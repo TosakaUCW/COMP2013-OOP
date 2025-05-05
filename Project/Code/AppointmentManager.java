@@ -1,5 +1,6 @@
 // AppointmentManager.java
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -8,10 +9,28 @@ import java.util.stream.Collectors;
 public class AppointmentManager {
 
     private List<Appointment> appointments;
+    private static final String CSV_FILE = "appointments.csv";
+
     private static AppointmentManager instance = new AppointmentManager();
 
     private AppointmentManager() {
-        appointments = new ArrayList<>();
+        // Load from CSV on startup
+        try {
+            appointments = CsvUtil.readCsv(CSV_FILE, fields -> {
+                int id = Integer.parseInt(fields[0]);
+                String name = fields[1];
+                String email = fields[2];
+                String service = fields[3];
+                String date = fields[4];
+                String time = fields[5];
+                Person cust = new Customer(name, email);
+                // Using the new constructor, the signature matches: (int, Person, String, String, String)
+                return new Appointment(id, cust, service, date, time);
+            });
+        } catch (IOException e) {
+            System.err.println("Failed to load appointments: " + e.getMessage());
+            appointments = new ArrayList<>();
+        }
     }
 
     public static AppointmentManager getInstance() {
@@ -28,6 +47,7 @@ public class AppointmentManager {
             }
         }
         appointments.add(appointment);
+        saveAll();
         return true;
     }
 
@@ -48,6 +68,7 @@ public class AppointmentManager {
         // Use setters instead of direct field access
         appt.setDate(newDate);
         appt.setTime(newTime);
+        saveAll();
         return true;
     }
 
@@ -55,6 +76,7 @@ public class AppointmentManager {
         Appointment appt = findAppointment(appointmentID);
         if (appt != null) {
             appointments.remove(appt);
+            saveAll();
             return true;
         }
         return false;
@@ -97,5 +119,23 @@ public class AppointmentManager {
         return appointments.stream()
                 .filter(a -> a.getCustomer().getName().equalsIgnoreCase(customerName))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Write the current list back to CSV
+     */
+    private void saveAll() {
+        try {
+            CsvUtil.writeCsv(CSV_FILE, appointments, appt -> new String[]{
+                String.valueOf(appt.getAppointmentID()),
+                appt.getCustomer().getName(),
+                appt.getCustomer().getEmail(), // Person.java 中已有 getEmail()
+                appt.getServiceType(),
+                appt.getDate(),
+                appt.getTime()
+            });
+        } catch (IOException e) {
+            System.err.println("Failed to save appointments: " + e.getMessage());
+        }
     }
 }
