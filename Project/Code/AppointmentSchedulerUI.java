@@ -209,7 +209,7 @@ public class AppointmentSchedulerUI extends JFrame {
     }
 
     private JPanel createUpdatePanel() {
-        JPanel panel = new JPanel(new GridLayout(4, 2, 5, 5));
+        JPanel panel = new JPanel(new GridLayout(5, 2, 5, 5));
         JTextField idField = new JTextField();
 
         SpinnerDateModel dateModel = new SpinnerDateModel();
@@ -223,7 +223,7 @@ public class AppointmentSchedulerUI extends JFrame {
         timeSpinner.setEditor(
                 new JSpinner.DateEditor(timeSpinner, "HH:mm")
         );
-
+        JTextField serviceField = new JTextField();
         JButton updateBtn = new JButton("Update");
 
         panel.add(new JLabel("Appointment ID:"));
@@ -232,6 +232,8 @@ public class AppointmentSchedulerUI extends JFrame {
         panel.add(dateSpinner);
         panel.add(new JLabel("New Time:"));
         panel.add(timeSpinner);
+        panel.add(new JLabel("New Service Type:"));
+        panel.add(serviceField);
         panel.add(new JLabel());
         panel.add(updateBtn);
 
@@ -242,7 +244,8 @@ public class AppointmentSchedulerUI extends JFrame {
                         .format(dateSpinner.getValue());
                 String newTime = new SimpleDateFormat("HH:mm")
                         .format(timeSpinner.getValue());
-                boolean ok = manager.updateAppointment(id, newDate, newTime);
+                String newService = serviceField.getText().trim();
+                boolean ok = manager.updateAppointment(id, newDate, newTime, newService);
                 if (ok) {
                     JOptionPane.showMessageDialog(this, "Updated successfully!");
                 } else {

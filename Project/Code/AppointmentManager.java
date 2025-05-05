@@ -51,6 +51,9 @@ public class AppointmentManager {
         return true;
     }
 
+    /**
+     * Update date and time, keeping existing service type.
+     */
     public synchronized boolean updateAppointment(int appointmentID, String newDate, String newTime) {
         Appointment appt = findAppointment(appointmentID);
         if (appt == null) {
@@ -68,6 +71,31 @@ public class AppointmentManager {
         // Use setters instead of direct field access
         appt.setDate(newDate);
         appt.setTime(newTime);
+        saveAll();
+        return true;
+    }
+
+    /**
+     * Update date, time, and service type.
+     */
+    public synchronized boolean updateAppointment(int appointmentID, String newDate, String newTime, String newServiceType) {
+        Appointment appt = findAppointment(appointmentID);
+        if (appt == null) {
+            return false;
+        }
+        // Check for conflict: another appointment with same date, time, and service
+        for (Appointment a : appointments) {
+            if (a.getAppointmentID() != appointmentID
+                    && a.getDate().equals(newDate)
+                    && a.getTime().equals(newTime)
+                    && a.getServiceType().equals(newServiceType)) {
+                return false;
+            }
+        }
+        // Apply updates
+        appt.setDate(newDate);
+        appt.setTime(newTime);
+        appt.setServiceType(newServiceType);
         saveAll();
         return true;
     }

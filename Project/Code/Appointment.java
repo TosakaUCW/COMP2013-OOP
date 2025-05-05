@@ -20,13 +20,13 @@ public class Appointment {
         this.date = date;
         this.time = time;
     }
-    
+
     Appointment(int appointmentID, Person customer, String serviceType, String date, String time) {
         this.appointmentID = appointmentID;
-        this.customer      = customer;
-        this.serviceType   = serviceType;
-        this.date          = date;
-        this.time          = time;
+        this.customer = customer;
+        this.serviceType = serviceType;
+        this.date = date;
+        this.time = time;
         // Ensure that the static counter idCounter is always greater than the current maximum ID
         if (appointmentID > idCounter) {
             idCounter = appointmentID;
@@ -70,5 +70,12 @@ public class Appointment {
             throw new IllegalArgumentException("Time cannot be null");
         }
         this.time = time;
+    }
+
+    public void setServiceType(String serviceType) {
+        if (serviceType == null) {
+            throw new IllegalArgumentException("Service type cannot be null");
+        }
+        this.serviceType = serviceType;
     }
 }
