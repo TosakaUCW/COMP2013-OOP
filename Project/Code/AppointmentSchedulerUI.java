@@ -5,6 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.stream.Collectors;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -20,16 +23,19 @@ public class AppointmentSchedulerUI extends JFrame {
     private JTextField filterField;
     private JComboBox<String> sortCombo;
 
+    private JTabbedPane tabs;
+
     public AppointmentSchedulerUI() {
         setTitle("Online Appointment Scheduler");
         setSize(600, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        JTabbedPane tabs = new JTabbedPane();
+        tabs = new JTabbedPane();
         tabs.add("Book", createBookPanel());
         tabs.add("View", createViewPanel());
         tabs.add("Cancel", createCancelPanel());
         tabs.add("Update", createUpdatePanel());
+        tabs.add("Stats", createStatsPanel());
 
         tabs.addChangeListener(new ChangeListener() {
             @Override
@@ -38,12 +44,100 @@ public class AppointmentSchedulerUI extends JFrame {
                 if (tabs.getSelectedIndex() == 1) {
                     loadAppointments();
                 }
+
+                // When the "Stats" tab is selected, refresh the stats
+                if (tabs.getSelectedIndex() == 4) {
+                    refreshStatsPanel();
+                }
             }
         });
 
         add(tabs);
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    private void refreshStatsPanel() {
+        // Get all appointments
+        List<Appointment> list = manager.getAllAppointments();
+        int total = list.size();
+
+        // Group count by serviceType
+        Map<String, Long> countByService = list.stream()
+                .collect(Collectors.groupingBy(Appointment::getServiceType, Collectors.counting()));
+
+        // Construct display text
+        StringBuilder sb = new StringBuilder();
+        sb.append("Total Appointments: ").append(total).append("\n\n");
+        sb.append("By Service Type:\n");
+        for (Map.Entry<String, Long> entry : countByService.entrySet()) {
+            sb.append("  ")
+                    .append(entry.getKey())
+                    .append(": ")
+                    .append(entry.getValue())
+                    .append("\n");
+        }
+
+        // Display in a non-editable text area
+        JTextArea textArea = new JTextArea(sb.toString());
+        textArea.setEditable(false);
+        textArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+
+        // Get the "Stats" panel
+        JPanel statsPanel = (JPanel) tabs.getComponentAt(4);
+
+        // Get the JScrollPane in the panel
+        JScrollPane scrollPane = (JScrollPane) statsPanel.getComponent(0);
+        scrollPane.setViewportView(new JScrollPane(textArea));
+    }
+
+    private JPanel createStatsPanel() {
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
+
+        // Get all appointments
+        List<Appointment> list = manager.getAllAppointments();
+        int total = list.size();
+
+        // Group count by serviceType
+        Map<String, Long> countByService = list.stream()
+                .collect(Collectors.groupingBy(Appointment::getServiceType, Collectors.counting()));
+
+        // Construct display text
+        StringBuilder sb = new StringBuilder();
+        sb.append("Total Appointments: ").append(total).append("\n\n");
+        sb.append("By Service Type:\n");
+        for (Map.Entry<String, Long> entry : countByService.entrySet()) {
+            sb.append("  ")
+                    .append(entry.getKey())
+                    .append(": ")
+                    .append(entry.getValue())
+                    .append("\n");
+        }
+
+        // Display in a non-editable text area
+        JTextArea textArea = new JTextArea(sb.toString());
+        textArea.setEditable(false);
+        textArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+        panel.add(new JScrollPane(textArea), BorderLayout.CENTER);
+
+        // Refresh button in case the data changes
+        JButton refreshBtn = new JButton("Refresh Stats");
+        refreshBtn.addActionListener(e -> {
+            // Recalculate and update the text
+            List<Appointment> updated = manager.getAllAppointments();
+            int newTotal = updated.size();
+            Map<String, Long> newCounts = updated.stream()
+                    .collect(Collectors.groupingBy(Appointment::getServiceType, Collectors.counting()));
+
+            StringBuilder sb2 = new StringBuilder();
+            sb2.append("Total Appointments: ").append(newTotal).append("\n\n");
+            sb2.append("By Service Type:\n");
+            newCounts.forEach((svc, cnt) -> sb2.append("  ").append(svc).append(": ").append(cnt).append("\n"));
+            textArea.setText(sb2.toString());
+        });
+        panel.add(refreshBtn, BorderLayout.SOUTH);
+
+        return panel;
     }
 
     private JPanel createBookPanel() {
