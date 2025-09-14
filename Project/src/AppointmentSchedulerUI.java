@@ -363,6 +363,7 @@ public class AppointmentSchedulerUI extends JFrame {
         return panel;
     }
 
+    // Main method to run the application
     public static void main(String[] args) {
         SwingUtilities.invokeLater(AppointmentSchedulerUI::new);
     }
